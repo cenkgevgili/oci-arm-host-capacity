@@ -72,6 +72,18 @@ jobs:
         run: |
           echo "${{ secrets.OCI_PRIVATE_KEY_BASE64 }}" | base64 --decode > oracle_key.pem
           chmod 600 oracle_key.pem
+          # Verify key file was created and contains valid PEM format
+          if [ ! -s oracle_key.pem ]; then
+            echo "Error: Private key file is empty or not created"
+            exit 1
+          fi
+          if ! head -1 oracle_key.pem | grep -q "BEGIN"; then
+            echo "Error: Private key file doesn't contain valid PEM format"
+            cat oracle_key.pem | head -5
+            exit 1
+          fi
+          echo "Private key file created successfully"
+          ls -lh oracle_key.pem
 
       - name: Run Provisioning Script
         run: |
@@ -81,7 +93,7 @@ jobs:
           OCI_USER_ID: ${{ secrets.OCI_USER_ID }}
           OCI_TENANCY_ID: ${{ secrets.OCI_TENANCY_ID }}
           OCI_KEY_FINGERPRINT: ${{ secrets.OCI_KEY_FINGERPRINT }}
-          OCI_PRIVATE_KEY_FILENAME: "oracle_key.pem"
+          OCI_PRIVATE_KEY_FILENAME: "${{ github.workspace }}/oracle_key.pem"
           OCI_SUBNET_ID: ${{ secrets.OCI_SUBNET_ID }}
           OCI_IMAGE_ID: "ocid1.image.oc1.ap-mumbai-1.aaaaaaaaohman5szirc6pao66iw4xiyi7wrknar66xmy7t3hf7yxx7eoplqa"
           OCI_AVAILABILITY_DOMAIN: ${{ secrets.OCI_AVAILABILITY_DOMAIN }}
