@@ -6,6 +6,9 @@ namespace Hitrov\Test;
 
 use Hitrov\Test\Traits\LoadEnv;
 
+/**
+ * @group integration
+ */
 class OciApiWithEnvFileTest extends OciApiTest
 {
     use LoadEnv;

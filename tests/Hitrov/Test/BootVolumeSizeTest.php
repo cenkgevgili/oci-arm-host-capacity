@@ -13,6 +13,7 @@ class BootVolumeSizeTest extends BootVolumeIdTest
     /**
      * @covers OciApi::createInstance
      * @covers \Hitrov\OciConfig::setBootVolumeSizeInGBs
+     * @group integration
      */
     public function testCreateInstance(): void
     {

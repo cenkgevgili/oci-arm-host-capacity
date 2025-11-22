@@ -30,6 +30,7 @@ class BootVolumeIdTest extends TestCase
     /**
      * @covers OciApi::createInstance
      * @covers \Hitrov\OciConfig::setBootVolumeId
+     * @group integration
      */
     public function testCreateInstance(): void
     {

@@ -34,7 +34,7 @@ jobs:
 
       - name: Run Unit Tests
         run: |
-          vendor/bin/phpunit --color tests/
+          vendor/bin/phpunit --color --exclude-group integration tests/
         env:
           OCI_REGION: ${{ secrets.OCI_REGION }}
           OCI_USER_ID: ${{ secrets.OCI_USER_ID }}

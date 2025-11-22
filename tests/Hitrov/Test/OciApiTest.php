@@ -33,6 +33,7 @@ class OciApiTest extends TestCase
 
     /**
      * @covers OciApi::getInstances
+     * @group integration
      */
     public function testGetAvailabilityDomains(): void
     {
@@ -46,6 +47,7 @@ class OciApiTest extends TestCase
 
     /**
      * @covers OciApi::getInstances
+     * @group integration
      */
     public function testGetInstances(): void
     {
@@ -59,6 +61,7 @@ class OciApiTest extends TestCase
 
     /**
      * @covers OciApi::checkExistingInstances
+     * @group integration
      */
     public function testCheckExistingInstances(): void
     {
@@ -74,6 +77,7 @@ class OciApiTest extends TestCase
 
     /**
      * @covers OciApi::createInstance
+     * @group integration
      */
     public function testCreateInstance(): void
     {
