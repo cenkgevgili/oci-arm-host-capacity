@@ -74,11 +74,8 @@ $message .= "❌ Failed: *$failed*\n";
 $message .= "🚫 Cancelled: *$cancelled*\n";
 $message .= "⏭️ Skipped: *$skipped*\n\n";
 
-if ($success > 0) {
-    $message .= "🎉 *Instance might be created! Check logs!*";
-} else {
-    $message .= "Still trying... ⏳";
-}
+$message .= "ℹ️ *Status:* System is active and checking regularly.\n";
+$message .= "If an instance is successfully created, you will receive a separate 'SUCCESS' alert immediately.";
 
 // Send to Telegram
 $telegram = new Telegram();
