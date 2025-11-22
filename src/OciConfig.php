@@ -6,7 +6,7 @@ namespace Hitrov;
 use Hitrov\Exception\AvailabilityDomainRequiredException;
 use Hitrov\Exception\BootVolumeSizeException;
 
-class OciConfig
+class OciConfig implements \JsonSerializable
 {
     public string $region = '';
     public string $ociUserId = '';
@@ -23,9 +23,9 @@ class OciConfig
     public ?int $ocpus;
     public ?int $memoryInGBs;
 
-    public string $sourceDetails;
-    public string $bootVolumeId;
-    public string $bootVolumeSizeInGBs;
+    public string $sourceDetails = '';
+    public string $bootVolumeId = '';
+    public string $bootVolumeSizeInGBs = '';
 
     /**
      * @param string $region
@@ -125,5 +125,27 @@ class OciConfig
     public function setSourceDetails(string $sourceDetails): void
     {
         $this->sourceDetails = $sourceDetails;
+    }
+
+    /**
+     * Serialize config to JSON in a deterministic way
+     * Only include properties that affect instance creation
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'region' => $this->region,
+            'ociUserId' => $this->ociUserId,
+            'tenancyId' => $this->tenancyId,
+            'keyFingerPrint' => $this->keyFingerPrint,
+            'privateKeyFilename' => $this->privateKeyFilename,
+            'availabilityDomains' => $this->availabilityDomains,
+            'subnetId' => $this->subnetId,
+            'imageId' => $this->imageId,
+            'ocpus' => $this->ocpus,
+            'memoryInGBs' => $this->memoryInGBs,
+            'bootVolumeId' => $this->bootVolumeId,
+            'bootVolumeSizeInGBs' => $this->bootVolumeSizeInGBs,
+        ];
     }
 }
