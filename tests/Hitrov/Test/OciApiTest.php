@@ -18,7 +18,7 @@ class OciApiTest extends TestCase
 
     const HAVE_INSTANCE = 'Already have an instance';
 
-    private static array $instances;
+    private static array $instances = [];
 
     /**
      * This method is called before each test.

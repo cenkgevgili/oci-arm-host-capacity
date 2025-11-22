@@ -51,20 +51,18 @@ class FileCacheTest extends TestCase
 
         $cache->add([1, 'one'], 'foo');
 
-        $expected = <<<EOD
-{
-    "foo": {
-        "0c4b5682ece1704df5bf11d71fa55177": [
-            1,
-            "one"
-        ]
-    }
-}
-EOD;
+        $expected = [
+            "foo" => [
+                "0c4b5682ece1704df5bf11d71fa55177" => [
+                    1,
+                    "one"
+                ]
+            ]
+        ];
 
         $this->assertEquals(
             $expected,
-            file_get_contents($this->getCacheFilename()),
+            json_decode(file_get_contents($this->getCacheFilename()), true),
         );
     }
 
@@ -73,41 +71,37 @@ EOD;
         $config = $this->getDefaultConfig();
         $cache = new FileCache($config);
 
-        $existingCache = <<<EOD
-{
-    "foo": {
-        "0c4b5682ece1704df5bf11d71fa55177": [
-            1,
-            "one"
-        ]
-    }
-}
-EOD;
+        $existingCache = json_encode([
+            "foo" => [
+                "0c4b5682ece1704df5bf11d71fa55177" => [
+                    1,
+                    "one"
+                ]
+            ]
+        ], JSON_PRETTY_PRINT);
 
         file_put_contents($this->getCacheFilename(), $existingCache);
 
         $cache->add([2, 'two'], 'bar');
 
-        $expected = <<<EOD
-{
-    "foo": {
-        "0c4b5682ece1704df5bf11d71fa55177": [
-            1,
-            "one"
-        ]
-    },
-    "bar": {
-        "0c4b5682ece1704df5bf11d71fa55177": [
-            2,
-            "two"
-        ]
-    }
-}
-EOD;
+        $expected = [
+            "foo" => [
+                "0c4b5682ece1704df5bf11d71fa55177" => [
+                    1,
+                    "one"
+                ]
+            ],
+            "bar" => [
+                "0c4b5682ece1704df5bf11d71fa55177" => [
+                    2,
+                    "two"
+                ]
+            ]
+        ];
 
         $this->assertEquals(
             $expected,
-            file_get_contents($this->getCacheFilename()),
+            json_decode(file_get_contents($this->getCacheFilename()), true),
         );
     }
 
@@ -117,39 +111,35 @@ EOD;
         $config->bootVolumeId = 'baz';
         $cache = new FileCache($config);
 
-        $existingCache = <<<EOD
-{
-    "foo": {
-        "0c4b5682ece1704df5bf11d71fa55177": [
-            1,
-            "one"
-        ]
-    }
-}
-EOD;
+        $existingCache = json_encode([
+            "foo" => [
+                "0c4b5682ece1704df5bf11d71fa55177" => [
+                    1,
+                    "one"
+                ]
+            ]
+        ], JSON_PRETTY_PRINT);
 
         file_put_contents($this->getCacheFilename(), $existingCache);
 
         $cache->add([11, 'eleven'], 'foo');
 
-        $expected = <<<EOD
-{
-    "foo": {
-        "0c4b5682ece1704df5bf11d71fa55177": [
-            1,
-            "one"
-        ],
-        "b11f9e5fbe425f149a45af5a9fb40d66": [
-            11,
-            "eleven"
-        ]
-    }
-}
-EOD;
+        $expected = [
+            "foo" => [
+                "0c4b5682ece1704df5bf11d71fa55177" => [
+                    1,
+                    "one"
+                ],
+                "b11f9e5fbe425f149a45af5a9fb40d66" => [
+                    11,
+                    "eleven"
+                ]
+            ]
+        ];
 
         $this->assertEquals(
             $expected,
-            file_get_contents($this->getCacheFilename()),
+            json_decode(file_get_contents($this->getCacheFilename()), true),
         );
     }
 
