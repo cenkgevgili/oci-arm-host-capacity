@@ -47,7 +47,7 @@ class Telegram implements NotifierInterface
         return !empty(getenv('TELEGRAM_BOT_API_KEY')) && !empty(getenv('TELEGRAM_USER_ID'));
     }
 
-    public function getLatestCommand(int $seconds = 360): ?string
+    public function getLatestCommand(): ?string
     {
         $apiKey = getenv('TELEGRAM_BOT_API_KEY');
         $telegramUserId = getenv('TELEGRAM_USER_ID');
@@ -74,11 +74,16 @@ class Telegram implements NotifierInterface
             return null;
         }
         
-        // Check updates from newest to oldest
-        $updates = array_reverse($data['result']);
-        $cutoff = time() - $seconds;
+        $updates = $data['result'];
+        $maxUpdateId = 0;
+        $lastCommand = null;
         
         foreach ($updates as $update) {
+            $updateId = $update['update_id'];
+            if ($updateId > $maxUpdateId) {
+                $maxUpdateId = $updateId;
+            }
+            
             if (!isset($update['message']['text'])) {
                 continue;
             }
@@ -90,18 +95,29 @@ class Telegram implements NotifierInterface
                 continue;
             }
             
-            // Check timestamp (ignore old messages)
-            if ($message['date'] < $cutoff) {
-                continue;
-            }
-            
             $text = trim($message['text']);
             // Check for commands (starting with / or \)
             if (strpos($text, '/') === 0 || strpos($text, '\\') === 0) {
-                return str_replace('\\', '/', $text);
+                $lastCommand = str_replace('\\', '/', $text);
             }
         }
         
-        return null;
+        // Confirm updates so we don't process them again in the next run
+        if ($maxUpdateId > 0) {
+            $this->confirmUpdates($apiKey, $maxUpdateId + 1);
+        }
+        
+        return $lastCommand;
+    }
+
+    private function confirmUpdates(string $apiKey, int $offset): void
+    {
+        $url = "https://api.telegram.org/bot$apiKey/getUpdates?offset=$offset";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_exec($ch);
+        curl_close($ch);
     }
 }
