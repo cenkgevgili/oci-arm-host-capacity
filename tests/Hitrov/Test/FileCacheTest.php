@@ -4,17 +4,21 @@ namespace Hitrov\Test;
 
 use Hitrov\FileCache;
 use Hitrov\Test\Traits\DefaultConfig;
+use Hitrov\Test\Traits\LoadEnv;
 use PHPUnit\Framework\TestCase;
 
 class FileCacheTest extends TestCase
 {
     const CONFIG_MD5 = '0c4b5682ece1704df5bf11d71fa55177';
+    const ENV_FILENAME = '.env.test';
 
-    use DefaultConfig;
+    use DefaultConfig, LoadEnv;
 
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->loadEnv();
 
         if (file_exists($this->getCacheFilename())) {
             unlink($this->getCacheFilename());
