@@ -145,8 +145,8 @@ jobs:
           OCI_SUBNET_ID: "${{ secrets.OCI_SUBNET_ID }}"
           OCI_IMAGE_ID: "ocid1.image.oc1.me-jeddah-1.aaaaaaaaei7m7mxyfytpuzm7ywa6y4ndg5f6xndfsq7q5o5q5o5q5o5q5o5q"
           OCI_AVAILABILITY_DOMAIN: ${{ secrets.OCI_AVAILABILITY_DOMAIN }}
-          OCI_OCPUS: 4
-          OCI_MEMORY_IN_GBS: 24
+          OCI_OCPUS: "1"
+          OCI_MEMORY_IN_GBS: "6"
           OCI_SHAPE: "VM.Standard.A1.Flex"
           OCI_SSH_PUBLIC_KEY: ${{ secrets.OCI_SSH_PUBLIC_KEY }}
           OCI_MAX_INSTANCES: 1
