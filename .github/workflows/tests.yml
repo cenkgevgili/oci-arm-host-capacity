@@ -100,7 +100,7 @@ jobs:
         id: provision
         run: |
           echo "🚀 Starting provisioning attempt at $(date)"
-          echo "🌐 Target: Oracle Cloud Mumbai Region"
+          echo "🌐 Target: Oracle Cloud Jeddah Region"
           echo "💻 Instance Type: VM.Standard.A1.Flex (4 OCPU, 24GB RAM)"
           echo ""
           
