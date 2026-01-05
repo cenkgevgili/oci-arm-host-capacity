@@ -47,11 +47,11 @@ jobs:
           OCI_TENANCY_ID: ${{ secrets.OCI_TENANCY_ID }}
           OCI_KEY_FINGERPRINT: ${{ secrets.OCI_KEY_FINGERPRINT }}
           OCI_PRIVATE_KEY_FILENAME: "/tmp/test_key.pem"
-          OCI_SUBNET_ID: ${{ secrets.OCI_SUBNET_ID }}
+          OCI_SUBNET_ID: "${{ secrets.OCI_SUBNET_ID }}"
           OCI_IMAGE_ID: "ocid1.image.oc1.me-jeddah-1.aaaaaaaaei7m7mxyfytpuzm7ywa6y4ndg5f6xndfsq7q5o5q5o5q5o5q5o5q"
           OCI_AVAILABILITY_DOMAIN: ${{ secrets.OCI_AVAILABILITY_DOMAIN }}
-          OCI_OCPUS: "4"
-          OCI_MEMORY_IN_GBS: "24"
+          OCI_OCPUS: "1"
+          OCI_MEMORY_IN_GBS: "6"
           OCI_SHAPE: "VM.Standard.A1.Flex"
           OCI_SSH_PUBLIC_KEY: ${{ secrets.OCI_SSH_PUBLIC_KEY }}
 
@@ -101,7 +101,7 @@ jobs:
         run: |
           echo "🚀 Starting provisioning attempt at $(date)"
           echo "🌐 Target: Oracle Cloud Jeddah Region"
-          echo "💻 Instance Type: VM.Standard.A1.Flex (4 OCPU, 24GB RAM)"
+          echo "💻 Instance Type: VM.Standard.A1.Flex (1 OCPU, 6GB RAM)"
           echo ""
           
           OUTPUT=$(php index.php 2>&1)
@@ -142,7 +142,7 @@ jobs:
           OCI_TENANCY_ID: ${{ secrets.OCI_TENANCY_ID }}
           OCI_KEY_FINGERPRINT: ${{ secrets.OCI_KEY_FINGERPRINT }}
           OCI_PRIVATE_KEY_FILENAME: "${{ github.workspace }}/oracle_key.pem"
-          OCI_SUBNET_ID: ${{ secrets.OCI_SUBNET_ID }}
+          OCI_SUBNET_ID: "${{ secrets.OCI_SUBNET_ID }}"
           OCI_IMAGE_ID: "ocid1.image.oc1.me-jeddah-1.aaaaaaaaei7m7mxyfytpuzm7ywa6y4ndg5f6xndfsq7q5o5q5o5q5o5q5o5q"
           OCI_AVAILABILITY_DOMAIN: ${{ secrets.OCI_AVAILABILITY_DOMAIN }}
           OCI_OCPUS: 4
