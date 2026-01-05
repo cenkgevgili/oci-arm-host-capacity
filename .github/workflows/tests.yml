@@ -48,7 +48,7 @@ jobs:
           OCI_KEY_FINGERPRINT: ${{ secrets.OCI_KEY_FINGERPRINT }}
           OCI_PRIVATE_KEY_FILENAME: "/tmp/test_key.pem"
           OCI_SUBNET_ID: ${{ secrets.OCI_SUBNET_ID }}
-          OCI_IMAGE_ID: "ocid1.image.oc1.ap-mumbai-1.aaaaaaaaohman5szirc6pao66iw4xiyi7wrknar66xmy7t3hf7yxx7eoplqa"
+          OCI_IMAGE_ID: "ocid1.image.oc1.me-jeddah-1.aaaaaaaaei7m7mxyfytpuzm7ywa6y4ndg5f6xndfsq7q5o5q5o5q5o5q5o5q"
           OCI_AVAILABILITY_DOMAIN: ${{ secrets.OCI_AVAILABILITY_DOMAIN }}
           OCI_OCPUS: 4
           OCI_MEMORY_IN_GBS: 24
@@ -143,7 +143,7 @@ jobs:
           OCI_KEY_FINGERPRINT: ${{ secrets.OCI_KEY_FINGERPRINT }}
           OCI_PRIVATE_KEY_FILENAME: "${{ github.workspace }}/oracle_key.pem"
           OCI_SUBNET_ID: ${{ secrets.OCI_SUBNET_ID }}
-          OCI_IMAGE_ID: "ocid1.image.oc1.ap-mumbai-1.aaaaaaaaohman5szirc6pao66iw4xiyi7wrknar66xmy7t3hf7yxx7eoplqa"
+          OCI_IMAGE_ID: "ocid1.image.oc1.me-jeddah-1.aaaaaaaaei7m7mxyfytpuzm7ywa6y4ndg5f6xndfsq7q5o5q5o5q5o5q5o5q"
           OCI_AVAILABILITY_DOMAIN: ${{ secrets.OCI_AVAILABILITY_DOMAIN }}
           OCI_OCPUS: 4
           OCI_MEMORY_IN_GBS: 24
